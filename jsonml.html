@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSONML</title>
+    <style>
+        pre {
+            background-color: #eeeeee;
+            border-radius: 5px;
+        }
+        iframe {
+            border: 1px solid black;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <pre><span id="jml">
+{
+    "html": [
+        { "head": [] },
+        {
+            "body": [
+                "Plain Text...",
+                { "p": "Hello, World!" }
+            ],
+            "style": "color:red;"
+        }
+        
+    ]
+}
+    </span></pre>
+    <script>        
+        function genDOM (element="") {
+            let keys = Object.keys(element);
+            if (keys.length === 0) return "";
+            let name = keys[0];
+            let rawAttributes = keys.slice(1);
+            let content = "";
+            let attrStr = "";
+
+            for (let attr of rawAttributes) {
+                attrStr += " " + String(attr) + "='" + String(element[attr]).replace(/"/g,"") + "'";
+            }
+
+            if (element[keys[0]].constructor === Array) {
+                for (let ele of element[keys[0]]) {
+                    if (ele.constructor === String) {
+                        content += ele;
+                    } else {
+                        content += genDOM(ele);
+                    }
+                }
+            } else if (element[keys[0]].constructor === String) {
+                content += element[keys[0]];
+            } else {
+                // No Extra Content, Invalid DOM
+                // Consider allowing a string as pure text content
+            }
+            return "<"+name+attrStr+">"+content+"</"+name+">";
+        }
+
+        function genHMTL (src="") {
+            let document = JSON.parse(src);
+            return "<!DOCTYPE html>"+genDOM(document);
+        }
+
+        let frame = document.createElement("iframe");
+        frame.src = 'data:text/html;charset=utf8,'+escape(genHMTL(document.getElementById("jml").textContent));
+        frame.style.width = "100%";
+        frame.style.height = "100%";
+        document.body.appendChild(frame);
+    </script>
+</body>
+</html>
