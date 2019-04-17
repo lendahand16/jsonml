@@ -4,7 +4,8 @@
         {
             "body": [
                 "Plain Text...",
-                { "p": "Hello, World!" }
+                { "p": "Hello, World!" },
+                "<img src='https://www.w3.org/Icons/w3c_home'/>"
             ],
             "style": "color:red;"
         }

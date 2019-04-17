@@ -8,7 +8,8 @@ HTML Represented using JSON.
         {
             "body": [
                 "Plain Text...",
-                { "p": "Hello, World!" }
+                { "p": "Hello, World!" },
+                "<img src='https://www.w3.org/Icons/w3c_home'/>"
             ],
             "style": "color:red;"
         }
@@ -18,7 +19,7 @@ HTML Represented using JSON.
 ```
 ## Example Output
 ```html
-<!DOCTYPE html><html><head></head><body style='color:red;'>Plain Text...<p>Hello, World!</p></body></html>
+<!DOCTYPE html><html><head></head><body style='color:red;'>Plain Text...<p>Hello, World!</p><img src='https://www.w3.org/Icons/w3c_home'/></body></html>
 ```
 ## Spec
 The first key in a JSON object is interpreted as the element name. e.g. `div` or `p` or `body`.
