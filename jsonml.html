@@ -38,13 +38,15 @@ function genDOM (element="") {
     if (element[keys[0]].constructor === Array) {
         for (let ele of element[keys[0]]) {
             if (ele.constructor === String) {
-                content += ele;
+                if (ele.startsWith("$_")) content += window[ele] || "";
+                else content += ele;
             } else {
                 content += genDOM(ele);
             }
         }
     } else if (element[keys[0]].constructor === String) {
-        content += element[keys[0]];
+        if (element[keys[0]].startsWith("$_")) content += window[element[keys[0]]] || "";
+        else content += element[keys[0]];
     } else {
         // No Extra Content, Invalid DOM
         // Consider allowing a string as pure text content
