@@ -54,16 +54,18 @@ function genDOM (element="") {
 
 function genHMTL (src="") {
     let vars = window.JMLVars || {};
-    while (/%.*%/.exec(src)) {
-        src = src.replace(/%.*%/, function(match,p1,offset,string){
+    let findVarNameRegex = /(?<=[^\\])%.*(?<=[^\\])%/;
+    while (findVarNameRegex.exec(src)) {
+        src = src.replace(findVarNameRegex, function(match,p1,offset,string){
             let identifier = /(?<=%).*(?=%)/g.exec(match)[0];
             if (vars[identifier]) {
                 return String(vars[identifier]);
             } else {
-                return "null";
+                return 'null';
             }
         });
     }
+    console.log(src);
     let document = JSON.parse(src);
     return "<!DOCTYPE html>"+genDOM(document);
 }
