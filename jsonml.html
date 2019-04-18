@@ -3,35 +3,25 @@
 <head>
     <title>JSONML</title>
     <style>
-        pre {
-            background-color: #eeeeee;
-            border-radius: 5px;
-        }
         iframe {
             border: 1px solid black;
             border-radius: 5px;
         }
+        textarea {
+            background: #eeeeee;
+            border: 1px solid black;
+            border-radius: 5px;
+            width: 100%;
+            min-height: 35vh;
+        }
     </style>
 </head>
 <body>
-<pre><span id="jml"></span></pre>
+<h1>JSON Text</h1>
+<textarea id="jml" oninput="updateStuff(this);"></textarea>
+<h1>JML Output</h1>
+<iframe id="jmlFrame" width="100%" height="100%"></iframe>
 <script>
-const jml = `
-{
-    "html": [
-        { "head": [] },
-        {
-            "body": [
-                "Plain Text...",
-                { "p": "Hello, World!" },
-                "<img src='https://www.w3.org/Icons/w3c_home'/>"
-            ],
-            "style": "color:red;"
-        }
-        
-    ]
-}
-`;
 
 function genDOM (element="") {
     let keys = Object.keys(element);
@@ -67,13 +57,12 @@ function genHMTL (src="") {
     return "<!DOCTYPE html>"+genDOM(document);
 }
 
-let frame = document.createElement("iframe");
-let jmlDisplay = document.getElementById("jml");
-jmlDisplay.textContent = jml.trim();
-frame.src = 'data:text/html;charset=utf8,'+escape(genHMTL(jml));
-frame.style.width = "100%";
-frame.style.height = "100%";
-document.body.appendChild(frame);
+function updateStuff(sourceDiv) {
+    let frame = document.getElementById("jmlFrame");
+    //let jmlDisplay = document.getElementById("jml");
+    //jmlDisplay.textContent = jml.trim();
+    frame.src = 'data:text/html;charset=utf8,'+escape(genHMTL(sourceDiv.value));
+}
 </script>
 </body>
 </html>
