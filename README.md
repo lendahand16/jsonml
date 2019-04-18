@@ -13,7 +13,6 @@ HTML Represented using JSON.
             ],
             "style": "color:red;"
         }
-        
     ]
 }
 ```

@@ -15,7 +15,7 @@ function genDOM (element: any): string {
     let attrStr = "";
 
     for (let attr of rawAttributes) {
-        attrStr += " " + String(attr) + "='" + String(element[attr]).replace(/"/g,"") + "'";
+        attrStr += " " + String(attr) + "='" + String(element[attr]).replace(/(?<=[^\\])'/g,"\\'") + "'";
     }
 
     if (element[keys[0]].constructor === Array) {

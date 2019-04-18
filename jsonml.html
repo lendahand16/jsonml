@@ -32,7 +32,7 @@ const jml = `
     ]
 }
 `;
-	
+
 function genDOM (element="") {
     let keys = Object.keys(element);
     if (keys.length === 0) return "";
@@ -42,7 +42,7 @@ function genDOM (element="") {
     let attrStr = "";
 
     for (let attr of rawAttributes) {
-        attrStr += " " + String(attr) + "='" + String(element[attr]).replace(/"/g,"") + "'";
+        attrStr += " " + String(attr) + "='" + String(element[attr]).replace(/(?<=[^\\])'/g,"\\'") + "'";
     }
 
     if (element[keys[0]].constructor === Array) {

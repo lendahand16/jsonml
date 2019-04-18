@@ -1,0 +1,1 @@
+d=e=>{a=c=(k=Object.keys(e),"");if(!k.length)return'';let n=k[0];for(z of k.slice(1))a+=' '+z+"='"+e[z].replace(/(?<=[^\\])'/g,"\\'")+"'";if(Array.isArray(e[n]))for(f of e[n])typeof f=='string'?c+=f:c+=d(f);if(typeof e[n]=='string')c+=e[n];return"<"+n+a+">"+c+"</"+n+">"};h=s=>"<!DOCTYPE html>"+d(JSON.parse(s))
